@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comosuena</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="CSS/Style__index.css">
+    <link rel="stylesheet" type="text/css" href="../Normalize/normalize.css">
+    <link rel="icon" href="ICON/how.ico">
+    <meta name="keywords" content="portafolio, album, fotografia, video, vfx, filmaking">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1bfb71699e.js" crossorigin="anonymous"></script>
+</head>
+<body class="axis-complete">
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="ICON/how.ico">
+            </div>
+            <div class="nav-items">
+                <a href="index.html">Convertir Otro Audio</a>
+            </div>
+        </nav>
+    </header> 
+    <section class="hero">
+        <div class="hero-container">
+            <div class="flex-container__register">
+                <div class="form-img">
+                    <div class="img-container">
+                        <div class="welcome-text">
+                            <div id="h4-removable">
+                            <h4 >¿Te has preguntado cómo suena tu track después de pasar por la compresión de plataformas como YouTube?</h4><!--,Spotify y TikTok proximamente--><p>Experimenta la transformación de tu música en su mejor versión.</p></div><p>¡Escucha tu Arte como realmente es!</p>
+                            <p class="phara">coloca tu canción aquí</p>
+                        </div>
+                        <div class="flex-inputs">
+                      <form id="uploadForm">
+                            <input type="file" id="audioFile" name="" accept="audio/*">
+                            <button id="mybtn">Upload</button>
+                        </form>
+                        <div id="downloadLinks"></div>
+                        </div>
+                        
+                        <script>
+                            const btn = document.getElementById('mybtn');
+                            const ai = document.getElementById('audioFile');
+                            
+                            if(btn) {
+                                btn.addEventListener('click', async (e) => {
+                                    e.preventDefault();
+                                    const File = ai.files[0]; // filled
+                                    if (File) {
+                                        const fd = new FormData(); // way
+                                        fd.append('audio', File); // add audio
+                                        try {
+                                            const send = await fetch('/api', { // await fetch
+                                                method: 'POST',
+                                                body: fd,
+                                            });
+                    
+                                            if(send.ok) {
+                                                const data = await send.json();
+                    
+                                                const link = data.downloadUrl;
+                                                console.log(`audio received${link}`);
+                                              // Crear el enlace de descarga
+                                            const downloadLinks = document.getElementById('downloadLinks');
+                                            const a = document.createElement('a');
+                                            a.href = link; 
+                                            //codetaste
+                                            a.download = 'compressed_audio.mp3';
+                                            a.style.display = 'none'; 
+                                      
+                                            const newbtn = document.createElement('button');
+                                            newbtn.textContent = 'Descargar audio version Yt';
+                                            newbtn.onclick = () => {
+                                            a.click(); 
+                                             };
+                        
+                                        // Añadir el botón y el enlace al DOM
+                                            downloadLinks.innerHTML = '<h4>¡Listo!</h4><p>Tienes pocos segundos para descargar tu audio, por mantenimiento de la nube.</p><a href="https://fontawesome.com/icons/youtube?f=brands&s=solid"><i class="fa-brands fa-youtube"></i></a>';
+                                             downloadLinks.appendChild(newbtn);
+                                            downloadLinks.appendChild(a); // Añadir el enlace oculto al DOM
+                                            var removable = document.getElementById('h4-removable');
+                                            removable.remove();
+                    
+                                                           
+                                            }
+                                        } catch {
+                                            console.error('error http');
+                                        }
+                                    }
+                                });
+                            } else {
+                                console.error('btn isnt inside DOM');
+                            }
+                        </script>
+                    </body>
+                    </html>
+                    
