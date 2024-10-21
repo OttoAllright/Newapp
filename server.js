@@ -18,7 +18,7 @@ app.use(express.static('public'));
 //     console.log('API está funcionando');    
 // });
 
-app.put('/api', upload.single('audio'), (req,res)=>{
+app.post('/api', upload.single('audio'), (req,res)=>{
     console.log('audio arrived', req.file)
     try{
             const inputFilePath = req.file.path;
