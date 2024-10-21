@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.join(__dirname,'public')));
 
-app.post('/api', upload.single('audio'), (req,res)=>{
+app.post('https://comosuenapp.vercel.app/api', upload.single('audio'), (req,res)=>{
     console.log('audio arrived', req.file)
     try{
             const inputFilePath = req.file.path;
