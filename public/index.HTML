@@ -51,7 +51,7 @@
                                         const fd = new FormData(); // way
                                         fd.append('audio', File); // add audio
                                         try {
-                                            const send = await fetch('https://comosuenapp.vercel.app/api', { // await fetch
+                                            const send = await fetch('/api', { // await fetch
                                                 method: 'POST',
                                                 body: fd,
                                             });
