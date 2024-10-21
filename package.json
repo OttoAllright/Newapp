@@ -7,8 +7,8 @@
   },
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "d": "nodemon src/server.js"
+    "start": "node server.js",
+    "d": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
