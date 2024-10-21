@@ -6,10 +6,10 @@ import { compressAudio } from './audioCompressor.js';
 const upload = multer({ dest: '/public/uploads/'});
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(express.static('public'));
-0
+app.use(express.static(path.join('public')));
+
 app.post('/api', upload.single('audio'), (req,res)=>{
     console.log('audio arrived', req.file)
     try{
