@@ -18,7 +18,7 @@ app.use(express.static('public'));
 //     console.log('API está funcionando');    
 // });
 
-app.post('/api', upload.single('audio'), (req,res)=>{
+app.post('https://comosuenapp.vercel.app/api', upload.single('audio'), (req,res)=>{
     console.log('audio arrived', req.file)
     try{
             const inputFilePath = req.file.path;
