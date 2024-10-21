@@ -1,19 +1,8 @@
 {
-    "builds": [
-    {
-    "src": "/src/server.js",
-    "use": "@vercel/node"
-    }
-    ],
-    "routes":[
-        {
-            "src": "/api(,.*)",
-            "dest": "/src/audioCompressor.js"
-        },
-        {
-        "src":"/(.*)",
-        "dest":"/public/$1"
-        }
+    "version": 1,
+    "builds": [{
+    "src": "./server.js","use": "@vercel/node"}],
+    "routes":[{"src": "/(,.*)","dest": "/"}
     ]
      
 }
