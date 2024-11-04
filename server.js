@@ -11,7 +11,7 @@ fs.mkdirSync(uploadDirectory, { recursive: true }); // Asegurarse de que el dire
 const upload = multer({ dest: uploadDirectory });
 
 const app = express();
-const PORT = process.env.PORT || 3000;//server
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 
@@ -19,7 +19,7 @@ app.post('/api', upload.single('audio'), (req, res) => {
     console.log('audio arrived', req.file);
     try {
         const inputFilePath = req.file.path;
-        const outputFilePathss = path.join(uploadDirectory, `compressed_${req.file.filename}.mp3`); // Cambiar ruta de salida
+        const outputFilePath = path.join(uploadDirectory, `compressed_${req.file.filename}.mp3`); // Cambiar ruta de salida
 
         compressAudio(inputFilePath, outputFilePath)
             .then(compressedFilePath => {
