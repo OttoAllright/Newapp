@@ -5,7 +5,7 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import { compressAudio } from './audioCompressor.js';
 
-// Obtener el directorio actual
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -17,7 +17,7 @@ const upload = multer({ dest: uploadDirectory });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static('public'));
+app.use(express.static(`${__dirname}public`));
 
 app.post('/api', upload.single('audio'), (req, res) => {
     console.log('audio arrived', req.file);
