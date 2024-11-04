@@ -2,11 +2,15 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import multer from 'multer';
+import { fileURLToPath } from 'url';
 import { compressAudio } from './audioCompressor.js';
 
-// Cambiar la ruta de destino a un directorio accesible
-const uploadDirectory = path.join(__dirname, 'uploads'); // Crear un directorio 'uploads' en la raíz del proyecto
-fs.mkdirSync(uploadDirectory, { recursive: true }); // Asegurarse de que el directorio existe
+// Obtener el directorio actual
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const uploadDirectory = path.join(__dirname, 'uploads');
+fs.mkdirSync(uploadDirectory, { recursive: true });
 
 const upload = multer({ dest: uploadDirectory });
 
@@ -19,15 +23,13 @@ app.post('/api', upload.single('audio'), (req, res) => {
     console.log('audio arrived', req.file);
     try {
         const inputFilePath = req.file.path;
-        const outputFilePath = path.join(uploadDirectory, `compressed_${req.file.filename}.mp3`); // Cambiar ruta de salida
+        const outputFilePath = path.join(uploadDirectory, `compressed_${req.file.filename}.mp3`);
 
         compressAudio(inputFilePath, outputFilePath)
             .then(compressedFilePath => {
                 res.json({ "downloadUrl": `uploads/compressed_${req.file.filename}.mp3` });
 
-                // Esperar 15 segundos antes de eliminar los archivos
                 setTimeout(() => {
-                    // Eliminar el archivo de entrada
                     fs.unlink(inputFilePath, (err) => {
                         if (err) {
                             console.error("Error deleting input file:", err);
@@ -36,7 +38,6 @@ app.post('/api', upload.single('audio'), (req, res) => {
                         }
                     });
 
-                    // Eliminar el archivo de salida
                     fs.unlink(outputFilePath, (err) => {
                         if (err) {
                             console.error("Error deleting output file:", err);
@@ -44,7 +45,7 @@ app.post('/api', upload.single('audio'), (req, res) => {
                             console.log("Output file deleted successfully.");
                         }
                     });
-                }, 15000); // 15 segundos
+                }, 15000);
             })
             .catch(err => {
                 console.error("Error compressing audio:", err);
