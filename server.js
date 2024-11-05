@@ -17,7 +17,7 @@ const upload = multer({ dest: uploadDirectory });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(`${__dirname}public`));
+app.use(express.static(`${__dirname}/public`));
 
 app.post('/api', upload.single('audio'), (req, res) => {
     console.log('audio arrived', req.file);
@@ -27,7 +27,7 @@ app.post('/api', upload.single('audio'), (req, res) => {
 
         compressAudio(inputFilePath, outputFilePath)
             .then(compressedFilePath => {
-                res.json({ "downloadUrl": `uploads/compressed_${req.file.filename}.mp3` });
+                res.json({ "downloadUrl": `${__dirname}/uploads/compressed_${req.file.filename}.mp3` });
 
                 setTimeout(() => {
                     fs.unlink(inputFilePath, (err) => {
