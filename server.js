@@ -9,7 +9,7 @@ import { compressAudio } from './audioCompressor.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const uploadDirectory = path.join(__dirname, 'uploads');
+const uploadDirectory = path.join('public', 'uploads');
 fs.mkdirSync(uploadDirectory, { recursive: true });
 
 const upload = multer({ dest: uploadDirectory });
@@ -18,10 +18,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-app.use(express.static(path.join(__dirname,'public')));
+app.use(express.static(path.join('public')));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join('public', 'index.html'));
 });
 
 
@@ -33,7 +33,7 @@ app.post('/api', upload.single('audio'), (req, res) => {
 
         compressAudio(inputFilePath, outputFilePath)
             .then(compressedFilePath => {
-                res.json({ "downloadUrl": `${__dirname}/uploads/compressed_${req.file.filename}.mp3` });
+                res.json({ "downloadUrl": `uploads/compressed_${req.file.filename}.mp3` });
 
                 setTimeout(() => {
                     fs.unlink(inputFilePath, (err) => {
