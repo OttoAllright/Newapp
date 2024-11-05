@@ -17,7 +17,13 @@ const upload = multer({ dest: uploadDirectory });
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(`${__dirname}/public`));
+
+app.use(express.static(path.join(__dirname,'public')));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 
 app.post('/api', upload.single('audio'), (req, res) => {
     console.log('audio arrived', req.file);
