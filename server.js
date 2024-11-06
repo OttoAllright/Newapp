@@ -4,17 +4,13 @@ import path from 'path';
 import multer from 'multer';
 import { compressAudio } from './audioCompressor.js';
 
-
-const uploadDirectory = path.join('public', 'uploads');
-fs.mkdirSync(uploadDirectory, { recursive: true });
-
-const upload = multer({ dest: uploadDirectory });
-
 const app = express();
 const PORT = process.env.PORT || 3000;
+ app.use(express.static('public'));
+ const uploadDirectory = path.join('public', 'uploads');
+fs.mkdirSync(uploadDirectory, { recursive: true });
+const upload = multer({ dest: uploadDirectory });
 
-
-app.use(express.static('public'));
 
 
 app.post('/api', upload.single('audio'), (req, res) => {
