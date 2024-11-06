@@ -13,12 +13,8 @@ fs.mkdirSync(uploadDirectory, { recursive: true });
 const upload = multer({ dest: uploadDirectory });
 
 // Configura el middleware para servir archivos estáticos
-app.use(express.static(path.join('public')));
+app.use(express.static('./public'));
 
-// Ruta para la página principal
-app.get('/', (req, res) => {
-    res.sendFile(path.join('./public', 'index.html'));
-});
 
 
 app.post('/api', upload.single('audio'), (req, res) => {
