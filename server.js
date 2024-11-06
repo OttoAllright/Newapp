@@ -12,7 +12,7 @@ const uploadDirectory = path.join('public', 'uploads');
 fs.mkdirSync(uploadDirectory, { recursive: true });
 const upload = multer({ dest: uploadDirectory });
 
- app.use(express.static('./public'));
+ app.use(express.static('/public'));
 
 
 
