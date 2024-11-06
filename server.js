@@ -6,10 +6,13 @@ import { compressAudio } from './audioCompressor.js';
 
 const app = express();
 const PORT = process.env.PORT || 10000;
- app.use(express.static('public'));
- const uploadDirectory = path.join('public', 'uploads');
+
+
+const uploadDirectory = path.join('public', 'uploads');
 fs.mkdirSync(uploadDirectory, { recursive: true });
 const upload = multer({ dest: uploadDirectory });
+
+ app.use(express.static('./public'));
 
 
 
