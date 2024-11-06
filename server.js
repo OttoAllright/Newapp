@@ -14,7 +14,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 
-app.use(express.static(path.join('public')));
+app.use(express.static('public'));
 
 
 app.post('/api', upload.single('audio'), (req, res) => {
