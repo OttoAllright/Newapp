@@ -5,7 +5,7 @@ import multer from 'multer';
 import { compressAudio } from './audioCompressor.js';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 
 const uploadDirectory = path.join('public', 'uploads');
