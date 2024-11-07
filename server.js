@@ -5,7 +5,7 @@ import multer from 'multer';
 import { compressAudio } from './audioCompressor.js';
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 
 const uploadDirectory = path.join('public', 'uploads');
@@ -13,7 +13,11 @@ fs.mkdirSync(uploadDirectory, { recursive: true });
 const upload = multer({ dest: uploadDirectory });
 
 // Configura el middleware para servir archivos estáticos
-app.use(express.static('./public'));
+app.use(express.static('public'));
+
+app.get("/", (req,res) =>{
+ res.sendFile('index.html', {root:'public'})
+})
 
 
 
