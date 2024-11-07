@@ -16,7 +16,7 @@ const upload = multer({ dest: uploadDirectory });
 app.use(express.static('public'));
 
 app.get("/", (req,res) =>{
- res.sendFile('index.html', {root:'public'})
+ res.sendFile('index.html', {root:'./public'})
 })
 
 
